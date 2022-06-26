@@ -1,13 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import VideosListItem from '~/components/organisms/VideosListItem';
-import Spinner from '~/components/atoms/Spinner';
-import Typography from '~/components/atoms/Typography';
+import Spinner from '../../atoms/Spinner/index'
+import Typography from '../../atoms/Typograhy/index'
 
-const StyledVideosListItem = styled(VideosListItem)`
-  margin-top: 10px;
-`;
 
 const Loading = styled.div`
   position: relative;
@@ -15,17 +11,12 @@ const Loading = styled.div`
   height: 100px;
 `;
 
-const VideosList = ({
-	loading,
-	videos,
-}) => (
+const VideosList = (loading,videos) => (
 	<>
-		{!loading && !videos.length && <Typography>ビデオがありません</Typography>}
+		{!loading && !videos.length &&
+			<Typography>ビデオがありません</Typography>
+		}
 		{/* videosの中身の数だけVideosListItemを表示 */}
-		{videos.map((video) => (
-			<StyledVideosListItem key={video.id} video={video} />
-		))}
-		{/* ロード中はSpinnerを表示 */}
 		{loading && <Loading><Spinner /></Loading>}
 	</>
 );
@@ -41,5 +32,3 @@ VideosList.defaultProps = {
 };
 
 export default VideosList;
-
-
