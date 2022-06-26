@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Typography from '~/components/atoms/Typography';
+import Typography from  '../../atoms/Typograhy/index.jsx'
 
 const Root = styled.div`
   width: 100%;
