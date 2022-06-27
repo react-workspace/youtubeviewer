@@ -1,39 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
-import VideosListTemplate from '../../templates/VideosListTemplate /index';
-import Header from '../../organisms/Header/index';
-import SearchForm from '../../organisms/SearchForm/index';
-import VideosList from '../../organisms/VideosList/index';
+import React from 'react';
+import { actions } from '@storybook/addon-actions';
+import { TopPagePresenter as TopPage } from '.';
+import sampleData from '../../organisms/VideosListItem/sampleData.json';
 
-export const TopPagePresenter = ({
-	search,
-	searchNext,
-	defaultKeyword,
-	videos,
-	loading,
-}) => (
-	<VideosListTemplate
-		headerContents={<Header />}
-		searchFormContents={(
-			<SearchForm onSubmit={search} defaultValue={defaultKeyword} />
-		)}
-		videosListContents={<VideosList videos={videos} loading={loading} />}
-		onScrollEnd={searchNext}
-	/>
-);
+export default { title: 'pages/TopPage' };
 
-TopPagePresenter.propTypes = {
-	search: PropTypes.func.isRequired,
-	searchNext: PropTypes.func.isRequired,
-	defaultKeyword: PropTypes.string,
-	videos: VideosList.propTypes.videos,
-	loading: PropTypes.bool,
+const props = {
+	...actions('search', 'searchNext'),
+	defaultKeyword: 'ねこ',
+	videos: sampleData,
 };
 
-TopPagePresenter.defaultProps = {
-	videos: null,
-	loading: false,
-	defaultKeyword: '',
-};
+export const topPage = () => <TopPage {...props} />;
 
-export default TopPagePresenter;
+export const loading = () => <TopPage {...props} videos={[]} loading />;
+loading.story = { name: '取得中' };
+
+export const continuationLoading = () => <TopPage {...props} loading />;
+continuationLoading.story = { name: '続きを取得中' };
+
+export const noResult = () => <TopPage {...props} videos={[]} />;
+noResult.story = { name: '結果が0件' };
+
